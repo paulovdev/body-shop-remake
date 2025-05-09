@@ -22,12 +22,12 @@ const Footer = () => {
           <input
             type="text"
             placeholder="Email"
-            className="relative w-[350px] h-[4rem] px-[1.75rem] max-md:w-full max-md:h-[50px] bg-bg rounded-full text-fg placeholder-grey text-[23px] max-md:text-[18px]  
+            className="relative max-w-[350px] w-full h-[4rem] px-[1.5rem] max-md:w-full max-md:h-[50px] bg-bg rounded-full text-fg placeholder-grey text-[23px] max-md:text-[18px]  
             flex items-center justify-center outline-none pointer-events-auto"
           />
           <FaCircle className="absolute right-5.5 top-5.5 w-4 h-4 bg-fg rounded-full max-md:top-4 max-md:right-5" />
         </div>
-        <div className="w-[350px] flex items-start justify-start gap-2">
+        <div className="max-w-[330px] w-full flex items-start justify-start gap-2 max-md:max-w-[260px]">
           <a
             href="/"
             className="text-bg text-[23px] max-md:text-[18px] underline"

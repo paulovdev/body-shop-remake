@@ -56,10 +56,10 @@ const AllGridGallery = ({ project, router }) => {
       >
         <Image
           src={project.img}
-          width={1000}
-          height={1000}
+          width={480}
+          height={480}
           alt={project.title}
-          className="size-full object-cover"
+          className="w-full max-h-[350px] h-full object-cover "
         />
       </figure>
     </div>

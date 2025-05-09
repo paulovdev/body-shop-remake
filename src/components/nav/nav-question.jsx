@@ -57,7 +57,7 @@ const QuestionModal = ({ setQuestionModal }) => {
         </a>
       </header>
 
-      <div className="size-full max-w-[600px] mx-auto my-0 flex flex-col items-center justify-center">
+      <div className="size-full max-w-[600px] mx-auto my-0 px-4 flex flex-col items-center justify-center">
         <h2 className="text-fg text-[23px] max-md:text-[18px] text-center">
           WHAT IS BODY SHOP?
         </h2>

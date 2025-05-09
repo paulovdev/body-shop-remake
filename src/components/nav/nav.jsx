@@ -2,12 +2,13 @@
 
 import { usePathname } from "next/navigation";
 import { useTransitionRouter } from "next-view-transitions";
-
 import NavLink from "./nav-link";
 import NavFilterOrderButton from "./nav-filter-order";
 import NavQuestionButton from "./nav-question";
 import NavListAndCascateButton from "./nav-list-cascate";
 import NavGridButton from "./nav-grid";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { useState } from "react";
 
 function slideInOut() {
   document.documentElement.animate(
@@ -41,12 +42,40 @@ const Nav = () => {
   const router = useTransitionRouter();
   const pathname = usePathname();
   const isProjectPage = pathname.startsWith("/projects");
+  const [scrollDirection, setScrollDirection] = useState("down");
+  const { scrollYProgress } = useScroll();
+  useMotionValueEvent(scrollYProgress, "change", (current) => {
+    const diff = current - scrollYProgress.getPrevious();
+    setScrollDirection(diff > 0 ? "down" : "up");
+  });
+
+  const slideUpAnimation = {
+    initial: {
+      y: 0,
+      transition: {
+        duration: 0.3,
+        ease: [0.33, 1, 0.68, 1],
+      },
+    },
+    animate: {
+      y: 250,
+      transition: {
+        duration: 0.3,
+        ease: [0.33, 1, 0.68, 1],
+      },
+    },
+  };
 
   return (
     <>
       {!isProjectPage && (
         <>
-          <nav className="fixed w-full bottom-0 px-8 py-8 max-md:px-4 max-md:py-4 flex items-end justify-between gap-2 z-[999]">
+          <motion.nav
+            className="fixed w-full bottom-0 px-8 py-8 max-md:px-4 max-md:py-4 flex items-end justify-between gap-2 z-[999]"
+            variants={slideUpAnimation}
+            initial="initial"
+            animate={scrollDirection === "down" ? "animate" : "initial"}
+          >
             <NavFilterOrderButton />
             <NavLink
               pathname={pathname}
@@ -62,7 +91,7 @@ const Nav = () => {
                 slideInOut={slideInOut}
               />
             </div>
-          </nav>
+          </motion.nav>
         </>
       )}
     </>

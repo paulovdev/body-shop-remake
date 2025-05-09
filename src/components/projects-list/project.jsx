@@ -1,7 +1,7 @@
 const ProjectList = ({ project, index, router, slideInOut }) => {
   return (
     <div
-      className="px-4 py-3 border-b border-[#00000011] grid grid-cols-4 gap-4 max-md:flex max-md:justify-between cursor-pointer"
+      className="px-4 py-4 border-b border-[#0000000a] grid grid-cols-4 gap-4 max-md:flex max-md:justify-between cursor-pointer"
       onClick={() => {
         router.push("/projects/" + project.id, {
           onTransitionReady: slideInOut,
@@ -15,7 +15,8 @@ const ProjectList = ({ project, index, router, slideInOut }) => {
       </div>
       <div className="w-full flex items-start justify-start max-md:hidden">
         <p className="text-fg text-[23px] max-md:text-[18px]  uppercase">
-          00{index}
+          {index <= 9 ? "00" : "0"}
+          {index}
         </p>
       </div>
       <div className="w-full flex items-start justify-start gap-2 max-md:hidden">
