@@ -42,23 +42,30 @@ const Nav = () => {
   const router = useTransitionRouter();
   const pathname = usePathname();
   const isProjectPage = pathname.startsWith("/projects");
-  const [scrollDirection, setScrollDirection] = useState("down");
-  const { scrollYProgress } = useScroll();
-  useMotionValueEvent(scrollYProgress, "change", (current) => {
-    const diff = current - scrollYProgress.getPrevious();
+
+  const [scrollDirection, setScrollDirection] = useState("up");
+  const [scrollYValue, setScrollYValue] = useState(0);
+
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (current) => {
+    const prev = scrollY.getPrevious();
+    const diff = current - prev;
+
     setScrollDirection(diff > 0 ? "down" : "up");
+    setScrollYValue(current);
   });
 
   const slideUpAnimation = {
     initial: {
-      y: 0,
+      y: "0%",
       transition: {
         duration: 0.3,
         ease: [0.33, 1, 0.68, 1],
       },
     },
     animate: {
-      y: 250,
+      y: "100%",
       transition: {
         duration: 0.3,
         ease: [0.33, 1, 0.68, 1],
@@ -74,7 +81,11 @@ const Nav = () => {
             className="fixed w-full bottom-0 px-8 py-8 max-md:px-4 max-md:py-4 flex items-end justify-between gap-2 z-[999]"
             variants={slideUpAnimation}
             initial="initial"
-            animate={scrollDirection === "down" ? "animate" : "initial"}
+            animate={
+              scrollDirection === "down" && scrollYValue > 500
+                ? "animate"
+                : "initial"
+            }
           >
             <NavFilterOrderButton />
             <NavLink
